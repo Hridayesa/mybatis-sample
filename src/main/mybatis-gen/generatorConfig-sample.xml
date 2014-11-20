@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@localhost:1521/EAIST"
+                        userId="qqq"
+                        password="qqq">
+        </jdbcConnection>
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="ru.mos.cs.entity.contract.gen" targetProject="..\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="ru.mos.cs.dao.contract.gen"  targetProject="..\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="ru.mos.cs.dao.contract.gen"  targetProject="..\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--schema="shard"-->
+        <table tableName="CONTRACT" domainObjectName="Contract" alias="CTR">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="select s_contract.nextval as id from dual" type="pre"/>
+            <!--<columnOverride  column="ID"  property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>-->
+        </table>
+        <table tableName="DELIVERY_STAGE" domainObjectName="DeliveryStage" alias="DST">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="select S_DELIVERY_STAGE.nextval as id from dual" type="pre"/>
+            <!--<columnOverride  column="ID" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>-->
+        </table>
+
+    </context>
+</generatorConfiguration>
