@@ -7,37 +7,37 @@
     <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@localhost:1521/EAIST"
-                        userId="qqq"
-                        password="qqq">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test">
+                        <!--userId="test"-->
+                        <!--password="test">-->
         </jdbcConnection>
         <javaTypeResolver >
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="ru.mos.cs.entity.contract.gen" targetProject="..\java">
+        <javaModelGenerator targetPackage="org.vs.mbsample.entity.gen" targetProject="${generated.source.dir}/src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="ru.mos.cs.dao.contract.gen"  targetProject="..\resources">
+        <sqlMapGenerator targetPackage="org.vs.mbsample.dao.gen"  targetProject="${generated.source.dir}/src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="ru.mos.cs.dao.contract.gen"  targetProject="..\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.vs.mbsample.dao.gen"  targetProject="${generated.source.dir}/src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
         <!--schema="shard"-->
-        <table tableName="CONTRACT" domainObjectName="Contract" alias="CTR">
+        <table tableName="AAA" domainObjectName="Aaa" alias="a">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="ID" sqlStatement="select s_contract.nextval as id from dual" type="pre"/>
+            <generatedKey column="ID" sqlStatement="MySql" type="post" identity="true"/>
             <!--<columnOverride  column="ID"  property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>-->
         </table>
-        <table tableName="DELIVERY_STAGE" domainObjectName="DeliveryStage" alias="DST">
+        <table tableName="BBB" domainObjectName="Bbb" alias="b">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="ID" sqlStatement="select S_DELIVERY_STAGE.nextval as id from dual" type="pre"/>
+            <generatedKey column="ID" sqlStatement="MySql" type="post" identity="true"/>
             <!--<columnOverride  column="ID" property="id" javaType="java.lang.Long" jdbcType="NUMERIC"/>-->
         </table>
 

@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import org.vs.mbsample.dao.gen.AaaMapper;
+import org.vs.mbsample.entity.gen.Aaa;
 
 import java.io.Reader;
 import java.util.List;
@@ -27,110 +29,121 @@ public class AaaTest {
     }
 
     @Test
-    public void testContract1() throws Exception {
+    public void testAaa1() throws Exception {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
-            Contract contract = new Contract();
-            contract.setContractNumber("QQQ");
-            contractMapper.insert(contract);
-            assertNotNull(contract.getId());
+            AaaMapper aaaMapper = sqlSession.getMapper(AaaMapper.class);
+            Aaa a = new Aaa();
+            a.setCode("ccc");
+            a.setName("nnn");
+            aaaMapper.insert(a);
+            assertNotNull(a.getId());
             sqlSession.commit();
 
-            Contract contract1 = contractMapper.selectByPrimaryKey(contract.getId());
-            assertEquals(contract.getContractNumber(),contract1.getContractNumber());
+            Aaa a2 = aaaMapper.selectByPrimaryKey(a.getId());
+            assertEquals(a.getCode(),a2.getCode());
+            assertEquals(a.getName(),a2.getName());
+//            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
+//            Contract contract = new Contract();
+//            contract.setContractNumber("QQQ");
+//            contractMapper.insert(contract);
+//            assertNotNull(contract.getId());
+//            sqlSession.commit();
+//
+//            Contract contract1 = contractMapper.selectByPrimaryKey(contract.getId());
+//            assertEquals(contract.getContractNumber(),contract1.getContractNumber());
 
         }
     }
 
     @Test
     public void testContract2() throws Exception {
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
-            String number = UUID.randomUUID().toString();
-
-            Contract contract = new Contract();
-            contract.setContractNumber(number);
-            contractMapper.insert(contract);
-
-            DeliveryStage deliveryStage = new DeliveryStage();
-            deliveryStage.setContractId(contract.getId());
-            deliveryStage.setName("DDD");
-
-            contract = new Contract();
-            contract.setContractNumber(number);
-            contractMapper.insert(contract);
-
-            sqlSession.commit();
-
-            ContractExample contractExample = new ContractExample();
-            contractExample.or().andContractNumberEqualTo(number);
-
-            List<Contract> list = contractMapper.selectByExample(contractExample);
-            assertEquals(2, list.size());
-            assertEquals(number, list.get(0).getContractNumber());
-        }
+//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+//            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
+//            String number = UUID.randomUUID().toString();
+//
+//            Contract contract = new Contract();
+//            contract.setContractNumber(number);
+//            contractMapper.insert(contract);
+//
+//            DeliveryStage deliveryStage = new DeliveryStage();
+//            deliveryStage.setContractId(contract.getId());
+//            deliveryStage.setName("DDD");
+//
+//            contract = new Contract();
+//            contract.setContractNumber(number);
+//            contractMapper.insert(contract);
+//
+//            sqlSession.commit();
+//
+//            ContractExample contractExample = new ContractExample();
+//            contractExample.or().andContractNumberEqualTo(number);
+//
+//            List<Contract> list = contractMapper.selectByExample(contractExample);
+//            assertEquals(2, list.size());
+//            assertEquals(number, list.get(0).getContractNumber());
+//        }
     }
 
     @Test
     public void testContract3() throws Exception {
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
-            DeliveryStageMapper deliveryStageMapper = sqlSession.getMapper(DeliveryStageMapper.class);
-            String number = UUID.randomUUID().toString();
-
-            Contract contract = new Contract();
-            contract.setContractNumber(number);
-            contractMapper.insert(contract);
-
-            DeliveryStage deliveryStage = new DeliveryStage();
-            deliveryStage.setContractId(contract.getId());
-            deliveryStage.setName("DDD1");
-            deliveryStageMapper.insert(deliveryStage);
-
-            deliveryStage = new DeliveryStage();
-            deliveryStage.setContractId(contract.getId());
-            deliveryStage.setName("DDD2");
-            deliveryStageMapper.insert(deliveryStage);
-
-            sqlSession.commit();
-
-            DeliveryStageExample deliveryStageExample = new DeliveryStageExample();
-            deliveryStageExample.or().andContractIdEqualTo(contract.getId());
-
-            List<DeliveryStage> list = deliveryStageMapper.selectByExample(deliveryStageExample);
-            assertEquals(2, list.size());
-        }
+//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+//            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
+//            DeliveryStageMapper deliveryStageMapper = sqlSession.getMapper(DeliveryStageMapper.class);
+//            String number = UUID.randomUUID().toString();
+//
+//            Contract contract = new Contract();
+//            contract.setContractNumber(number);
+//            contractMapper.insert(contract);
+//
+//            DeliveryStage deliveryStage = new DeliveryStage();
+//            deliveryStage.setContractId(contract.getId());
+//            deliveryStage.setName("DDD1");
+//            deliveryStageMapper.insert(deliveryStage);
+//
+//            deliveryStage = new DeliveryStage();
+//            deliveryStage.setContractId(contract.getId());
+//            deliveryStage.setName("DDD2");
+//            deliveryStageMapper.insert(deliveryStage);
+//
+//            sqlSession.commit();
+//
+//            DeliveryStageExample deliveryStageExample = new DeliveryStageExample();
+//            deliveryStageExample.or().andContractIdEqualTo(contract.getId());
+//
+//            List<DeliveryStage> list = deliveryStageMapper.selectByExample(deliveryStageExample);
+//            assertEquals(2, list.size());
+//        }
     }
 
     @Test
     public void testContract4() throws Exception {
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
-            DeliveryStageMapper deliveryStageMapper = sqlSession.getMapper(DeliveryStageMapper.class);
-            String number = UUID.randomUUID().toString();
-
-            Contract contract = new Contract();
-            contract.setContractNumber(number);
-            contractMapper.insert(contract);
-
-            DeliveryStage deliveryStage = new DeliveryStage();
-            deliveryStage.setContractId(contract.getId());
-            deliveryStage.setName("DDD1");
-            deliveryStageMapper.insert(deliveryStage);
-
-            deliveryStage = new DeliveryStage();
-            deliveryStage.setContractId(contract.getId());
-            deliveryStage.setName("DDD2");
-            deliveryStageMapper.insert(deliveryStage);
-
-            sqlSession.commit();
-
-            ContractMapperU contractMapperU = sqlSession.getMapper(ContractMapperU.class);
-            ContractU contractU = contractMapperU.selectContractWDeliveryStagesById(contract.getId());
-            assertNotNull(contractU);
-
-            assertEquals(2,contractU.getDeliveryStages().size());
-        }
+//        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+//            ContractMapper contractMapper = sqlSession.getMapper(ContractMapper.class);
+//            DeliveryStageMapper deliveryStageMapper = sqlSession.getMapper(DeliveryStageMapper.class);
+//            String number = UUID.randomUUID().toString();
+//
+//            Contract contract = new Contract();
+//            contract.setContractNumber(number);
+//            contractMapper.insert(contract);
+//
+//            DeliveryStage deliveryStage = new DeliveryStage();
+//            deliveryStage.setContractId(contract.getId());
+//            deliveryStage.setName("DDD1");
+//            deliveryStageMapper.insert(deliveryStage);
+//
+//            deliveryStage = new DeliveryStage();
+//            deliveryStage.setContractId(contract.getId());
+//            deliveryStage.setName("DDD2");
+//            deliveryStageMapper.insert(deliveryStage);
+//
+//            sqlSession.commit();
+//
+//            ContractMapperU contractMapperU = sqlSession.getMapper(ContractMapperU.class);
+//            ContractU contractU = contractMapperU.selectContractWDeliveryStagesById(contract.getId());
+//            assertNotNull(contractU);
+//
+//            assertEquals(2,contractU.getDeliveryStages().size());
+//        }
     }
 
 //    @Test
